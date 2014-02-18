@@ -46,13 +46,14 @@ static uchar env_get_char_init (int index);
  */
 #define XMK_STR(x)	#x
 #define MK_STR(x)	XMK_STR(x)
+#define CONFIG_BOOTCOMMAND 
 
 const uchar default_environment[] = {
 #ifdef	CONFIG_BOOTARGS
 	"bootargs="	CONFIG_BOOTARGS			"\0"
 #endif
 #ifdef	CONFIG_BOOTCOMMAND
-	"bootcmd="	CONFIG_BOOTCOMMAND		"\0"
+	"bootcmd="	CONFIG_BOOTCOMMAND	"nand read 0x20007fc0 0x100000 0x500000;bootm 0x20007fc0\0"
 #endif
 #ifdef	CONFIG_RAMBOOTCOMMAND
 	"ramboot="	CONFIG_RAMBOOTCOMMAND		"\0"
