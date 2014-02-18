@@ -15,6 +15,7 @@
 
 `/dev/mmcblk0` is your sd device. make sure your sd format is `FAT32`
 
+
 ###downlaod uboot to your sd card:
 donwlaod the `webee210-uboot.bin` to the first block of your sd.
         # cd ~/webee210v2
