@@ -285,6 +285,7 @@ void main_loop (void)
 	char bcs_set[16];
 #endif /* CONFIG_BOOTCOUNT_LIMIT */
 
+
 #ifdef CONFIG_BOOTCOUNT_LIMIT
 	bootcount = bootcount_load();
 	bootcount++;
@@ -388,6 +389,10 @@ void main_loop (void)
 # endif
 	}
 
+	
+	//run_command("sound",0);
+	run_command("menu",0);
+
 # ifdef CONFIG_MENUKEY
 	if (menukey == CONFIG_MENUKEY) {
 		s = getenv("menucmd");
@@ -402,12 +407,6 @@ void main_loop (void)
 	}
 #endif /* CONFIG_MENUKEY */
 #endif /* CONFIG_BOOTDELAY */
-
-/*Ìí¼ÓMENU²Ëµ¥ make by nietao email: nietaooldman@126.com */
-#ifdef CONFIG_CMD_MENU
-	run_command("menu", 0);
-#endif
-
 
 	/*
 	 * Main Loop for Monitor Command Processing
