@@ -128,6 +128,7 @@
 
 #define CONFIG_BOOTDELAY	5
 #define CONFIG_ZERO_BOOTDELAY_CHECK
+#define CONFIG_BOOTARGS "setenv bootargs noinitrd root=/dev/mtdblock2 init=/linuxrc console=ttySAC0,115200 rootfstype=yaffs2 mem=512M"
 
 
 /* Miscellaneous configurable options */

@@ -47,14 +47,14 @@ void main_menu_usage(char menu_type)
 	{
 		printf("#####    Webee210 USB download mode     #####\r\n\n");
 	}
-	printf("[1] Download program to Nand Flash\r\n");
+	printf("[1] Download U-boot to Nand Flash\r\n");
 	printf("[2] Download Linux Kernel (uImage.bin) to Nand Flash\r\n");
 	printf("[3] Download YAFFS image (root.bin) to Nand Flash\r\n");
 	printf("[4] Download Program to SDRAM and Run it\r\n");
-	printf("[5] Boot the system from  nand flash \r\n");
-	printf("[6] Boot the system from  SD card \r\n");
+	printf("[5] Boot the system from Nand Flash \r\n");
+	printf("[6] Boot the system from SD Card \r\n");
 	printf("[7] Format the Nand Flash -(°□°!) \r\n");
-	printf("[q] Return to uboot command mode -（╯－＿－）╯╧╧  \r\n");
+	printf("[q] Return to uboot command mode  \r\n");
 	printf("################################################# \r\n\n");
 	printf("Enter your selection (╭￣3￣)╭ : ");
 }
