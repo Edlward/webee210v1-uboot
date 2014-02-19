@@ -12,7 +12,7 @@
                 [6] Boot the system from SD Card                                                                                          
                 [7] Format the Nand Flash -(°□°!)                                                                                         
                 [q] Return to uboot command mode                                                                                          
-#################################################  
+
 
 ###USAGE
          @ make distclean
@@ -21,10 +21,10 @@
 
 ###DOWNLAOD
 
-__cat your sd card device__:                    
+__1.cat your sd card device__:                    
 
         sudo fdisk -l
-__you may see this in ubuntu__:                  
+__2.you may see this in ubuntu__:                  
 
         Partition table entries are not in disk order
         Disk /dev/mmcblk0: 7969 MB, 7969177600 bytes
@@ -40,8 +40,9 @@ __you may see this in ubuntu__:
 `/dev/mmcblk0` is your sd device. make sure your sd format is `FAT32`
 
 
-__downlaod uboot to your sd card__:                    
-donwlaod the `webee210-uboot.bin` to the first block of your sd.     
+__3downlaod uboot to your sd card__:                    
+donwlaod the `webee210-uboot.bin` to the first block of your sd.
+
         # cd ~/webee210v2
         # sudo dd iflag=dsync oflag=dsync if=webee210-uboot.bin of=/dev/mmcblk0 seek=1 
         # sync
