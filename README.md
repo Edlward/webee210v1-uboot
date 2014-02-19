@@ -1,18 +1,19 @@
 ###ABOUT
 
- This u-boot is get form the web,and rewrites for webee210 by [izobs](https://http://izobs.github.io/),here is the menu of the uboot
+ This u-boot is get form the web,and rewrites for webee210 by [izobs](https://izobs.github.io),here is the menu of the uboot
 
-                #####    Boot for Webee210 Main Menu    #####                                                                             
-                #####    Webee210 USB download mode     #####                                                                             
-                [1] Download U-boot to Nand Flash                                                                                         
-                [2] Download Linux Kernel (uImage.bin) to Nand Flash                                                                      
-                [3] Download YAFFS image (root.bin) to Nand Flash                                                                         
-                [4] Download Program to SDRAM and Run it                                                                                  
-                [5] Boot the system from Nand Flash                                                                                       
-                [6] Boot the system from SD Card                                                                                          
-                [7] Format the Nand Flash -(°□°!)                                                                                         
-                [q] Return to uboot command mode                                                                                          
-
+        #####    Boot for Webee210 Main Menu    #####                   
+        #####    Webee210 USB download mode     #####                                                      
+        [1] Download U-boot to Nand Flash.                                        
+        [2] Download Linux Kernel (uImage.bin) to Nand Flash.                            
+        [3] Download YAFFS image (root.bin) to Nand Flash.                                                 
+        [4] Download Program to SDRAM and Run it.                                                                
+        [5] Boot the system from Nand Flash.                                                                          
+        [6] Boot the system from SD Card.                                                                          
+        [7] Format the Nand Flash -(°□°!).                                           
+        [q] Return to uboot command mode.                                                  
+        ##################################                                          
+        Enter your selection (╭￣3￣)╭ : 
 
 ###USAGE
          @ make distclean
@@ -40,7 +41,7 @@ __2.you may see this in ubuntu__:
 `/dev/mmcblk0` is your sd device. make sure your sd format is `FAT32`
 
 
-__3downlaod uboot to your sd card__:                    
+__3.downlaod uboot to your sd card__:                    
 donwlaod the `webee210-uboot.bin` to the first block of your sd.
 
         # cd ~/webee210v2
