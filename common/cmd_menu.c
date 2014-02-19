@@ -1,6 +1,6 @@
 /*
- *  MEUN make by nietao 
- * email:nietaooldman@126.com
+ *  MEUN create by izobs 
+ * 	E-mail:ivincentlin@gmail.com
  */
 
 
@@ -11,38 +11,53 @@
 
 #ifdef CONFIG_CMD_MENU
 
-
-
 extern char console_buffer[];
 extern int readline (const char *const prompt);
-
 
 
 #define USE_USB_DOWN		1
 
 
+/*keyboard scan*/
+char awaitkey(void)     
+{
+                                                              
+    int i;
+                                                     
+    char c;
+                                  
+    while (1) 
+	{
+                                            
+		if (tstc()) /* we got a key press	*/
+              
+		return getc();
+                                 
+    }
+                                                                                       
+    return 0;                                               
+}
+
 void main_menu_usage(char menu_type)
 {
 
-	printf("\r\n#####	 Boot for Smart210 Main Menu	#####\r\n");
+	printf("\r\n#####	 Boot for Webee210 Main Menu	#####\r\n");
 
 	if( menu_type == USE_USB_DOWN)
 	{
-		printf("#####    Smart210 USB download mode     #####\r\n\n");
+		printf("#####    Webee210 USB download mode     #####\r\n\n");
 	}
 	printf("[1] Download program to Nand Flash\r\n");
 	printf("[2] Download Linux Kernel (uImage.bin) to Nand Flash\r\n");
 	printf("[3] Download YAFFS image (root.bin) to Nand Flash\r\n");
 	printf("[4] Download Program to SDRAM and Run it\r\n");
-	printf("[5] Boot the system\r\n");
-	printf("[6] Format the Nand Flash\r\n");
-	printf("[q] Return main Menu \r\n");
-	printf("Enter your selection: ");
+	printf("[5] Boot the system from  nand flash \r\n");
+	printf("[6] Boot the system from  SD card \r\n");
+	printf("[7] Format the Nand Flash -(°□°!) \r\n");
+	printf("[q] Return to uboot command mode -（╯－＿－）╯╧╧  \r\n");
+	printf("################################################# \r\n\n");
+	printf("Enter your selection (╭￣3￣)╭ : ");
 }
-
-
-
-
 
 
 void menu_shell(void)
@@ -53,26 +68,25 @@ void menu_shell(void)
 	while (1)
 	{
 		main_menu_usage(USE_USB_DOWN);
-		keyselect = getc();
+		keyselect = awaitkey();
 		printf("%c\n", keyselect);
 		switch (keyselect)
 		{
 			case '1':
 			{
-
-				strcpy(cmd_buf, "dnw 0x20000000; nand erase 0x0 0x80000; nand write 0x20000000 0x0 0x80000");
-
+				/*  Usbd-otg-hs.c (arch\arm\cpu\armv7):			setenv("filesize",buf); */
+				/*  $(filesize) is the size of  dnw download file */
+				printf("[1] Download program to Nand Flash\r\n");
+				strcpy(cmd_buf, "dnw 0x20000000; nand erase 0x0 0x80000; nand write 0x20000000 0x0 $(filesize)");
 				run_command(cmd_buf, 0);
 				break;
 			}
-			
-			
 
 			case '2':
 			{
 
-				strcpy(cmd_buf, "dnw 0x20000000; nand erase 0x300000 0x500000; nand write 0x20000000 0x300000 0x500000");
-
+				printf("[2] Download Linux Kernel (uImage.bin) to Nand Flash\r\n");
+				strcpy(cmd_buf, "dnw 0x20000000; nand erase 0x100000 0x300000; nand write 0x20000000 0x100000 $(filesize)");
 				run_command(cmd_buf, 0);
 				break;
 			}
@@ -80,11 +94,8 @@ void menu_shell(void)
 
 			case '3':
 			{
-//#ifdef CONFIG_MTD_DEVICE
-//				strcpy(cmd_buf, "dnw 0x20000000; nand erase root; nand write.yaffs 0x20000000 root $(filesize)");
-//#else
-				strcpy(cmd_buf, "dnw 0x20000000; nand erase 0xe00000 0xF8D0000; nand write.yaffs 0x20000000 0xe00000 $(filesize)");
-//#endif /* CONFIG_MTD_DEVICE */
+				printf("[3] Download YAFFS image (root.bin) to Nand Flash\r\n");
+				strcpy(cmd_buf, "dnw 0x20000000; nand erase  0x600000 0x12c00000; nand write.yaffs 0x20000000 0x600000 $(filesize)");
 				run_command(cmd_buf, 0);
 				break;
 			}
@@ -104,31 +115,38 @@ void menu_shell(void)
 			{
 
 				printf("Start Linux ...\n");
-//#ifdef CONFIG_MTD_DEVICE
-//				strcpy(cmd_buf, "nand read 0x20008000 kernel;bootm 0x20008000");
-//#else
-				strcpy(cmd_buf, "nand read 0x21000000 0x300000 0x500000;bootm 0x21000000");
-//#endif /* CONFIG_MTD_DEVICE */
+				printf("\n");
+				printf("Boot the linux (YAFFS2)\n");
+				strcpy(cmd_buf, "setenv bootargs noinitrd root=/dev/mtdblock2 init=/linuxrc console=ttySAC0,115200 rootfstype=yaffs2 mem=512M");
+				run_command(cmd_buf, 0);
+				strcpy(cmd_buf, "setenv bootcmd 'nand read 0x20007fc0 0x100000 0x500000;bootm 0x20007fc0'; save");
+				run_command(cmd_buf, 0);
+				strcpy(cmd_buf, "nand read 0x20007fc0 0x100000 0x500000");
+				run_command(cmd_buf, 0);
+				strcpy(cmd_buf, "bootm 0x20007fc0");
 				run_command(cmd_buf, 0);
 				break;
 			}
 
 			case '6':
 			{
+				printf("Start Linux from SD card .....\n");
+				break;
+			}
+
+			case '7':
+			{
 				strcpy(cmd_buf, "nand erase.chip ");
 				run_command(cmd_buf, 0);
 				break;
 			}
 
-			
-#ifdef CONFIG_SMART210
 			case 'Q':
 			case 'q':
 			{
 				return;	
 				break;
 			}
-#endif
 		}
 				
 	}
@@ -141,7 +159,7 @@ int do_menu (cmd_tbl_t *cmdtp, int flag, int argc, char *argv[])
 }
 
 U_BOOT_CMD(
-	menu,	3,	0,	do_menu,
+	menu,	CONFIG_SYS_MAXARGS,	0,	do_menu,
 	"display a menu, to select the items to do something",
 	"\n"
 	"\tdisplay a menu, to select the items to do something"

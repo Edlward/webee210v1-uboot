@@ -391,7 +391,8 @@ void main_loop (void)
 
 	
 	//run_command("sound",0);
-	//run_command("menu",0);
+	run_command("menu",0);
+
 # ifdef CONFIG_MENUKEY
 	if (menukey == CONFIG_MENUKEY) {
 		s = getenv("menucmd");
