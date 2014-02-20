@@ -202,7 +202,7 @@ format the Partition of SD into `FAT32`:
 
 __(4)Put the file into SD__
 
-just copy the uImage file to `/dev/mmcblk0p1`,and the yaffs2 file to `/dev/mmcblk0p2`.
+just copy the uImage file to `/dev/mmcblk0p1`,and the yaffs2 file to `/dev/mmcblk0p2`.                            
 __warning: make sure the filename of your  uImage file is `uImage`,and yaffs2 file is `webee_yaffs2_img`__
 
 
