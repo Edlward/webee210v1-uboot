@@ -988,6 +988,8 @@ clobber:	clean
 	@[ ! -d $(obj)onenand_ipl ] || find $(obj)onenand_ipl -name "*" -type l -print | xargs rm -f
 	@[ ! -d $(obj)mmc_spl ] || find $(obj)mmc_spl -name "*" -type l -print | xargs rm -f
 
+	rm -f $(obj)board/samsung/webee210/tools/mkwebee210spl
+
 mrproper \
 distclean:	clobber unconfig
 ifneq ($(OBJTREE),$(SRCTREE))
