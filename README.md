@@ -1,3 +1,8 @@
+###参与webee210-uboot的开发
+
+如果你想参与本__webee210-uboot__的开发,请用力hit下面的链接:
+
+
 ###ABOUT
 
  This u-boot is get form the web,and rewrites for webee210 by [izobs](https://izobs.github.io),here is the main menu of the uboot
