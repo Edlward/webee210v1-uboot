@@ -67,7 +67,7 @@ void main_menu_usage(char menu_type)
 		printf("[4] Download Program to SDRAM and Run it\r\n");
 		printf("[5] Boot the system from Nand Flash \r\n");
 		printf("[6] Boot the system from SD Card(support ext2 filesystem only)\r\n");
-		printf("[7] Format the Nand Flash -(°□°!) \r\n");
+		printf("[7] Format the Nand Flash \r\n");
 		printf("[q] Return to Menu  \r\n");
 		printf("################################################# \r\n\n");
 		printf("Enter your selection (╭￣3￣)╭ : ");
@@ -78,7 +78,7 @@ void main_menu_usage(char menu_type)
 		printf("[1] Download Linux Kernel (filename:uImage) to Nand Flash from SD\r\n");
 		printf("[2] Download YAFFS image (filename:webee_yaffs2_img) to Nand Flash from SD\r\n");
 		printf("[3] Boot the system from Nand Flash \r\n");
-		printf("[4] Format the Nand Flash -(°□°!) \r\n");
+		printf("[4] Format the Nand Flash  \r\n");
 		printf("[q] Return to Menu \r\n");
 		printf("################################################# \r\n\n");
 		printf("Enter your selection (╭￣3￣)╭ : ");
