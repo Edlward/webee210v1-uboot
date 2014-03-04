@@ -2,11 +2,10 @@
 
 如果你想参与本__webee210-uboot__的开发,请用力hit下面的链接:
 
+[webee210-uboot开发指南](https://github.com/iZobs/webee210-uboot/blob/master/Develop-doc.md)
 
-###ABOUT
-
- This u-boot is get form the web,and rewrites for webee210 by [izobs](https://izobs.github.io),here is the main menu of the uboot
-
+###关于
+这是网蜂webee210的uboot程序,下面是其主菜单:
 
         #####    Boot for Webee210 Main Menu    #####             
         [1] Webee210 USE_USB_DOWN Download mode                
@@ -14,17 +13,20 @@
         [q] quit to Command line                               
         #################################################                              
 
-###USAGE
+###编译
+
          @ make distclean
          @ make webee210_config
          @ make
 
-###DOWNLOAD
+###烧uboot到你的sd卡
 
-__1.cat your sd card device__:                    
+__1.查看你的SD__:
+
+在ubuntu下,通过下面的命令查看你的sd卡:                               
 
         sudo fdisk -l
-__2.you may see this in ubuntu__:                  
+下面是在ubuntu下打印的信息:                
 
         Partition table entries are not in disk order
         Disk /dev/mmcblk0: 7969 MB, 7969177600 bytes
@@ -37,20 +39,20 @@ __2.you may see this in ubuntu__:
                 Device Boot      Start         End      Blocks   Id  System
         /dev/mmcblk0p1            8192    15564799     7778304    b  W95 FAT32
 
-`/dev/mmcblk0` is your sd device. make sure your sd format is `FAT32`
+`/dev/mmcblk0` 是你的SD设备,确保他是`FAT32`格式的.
 
 
-__3.downlaod uboot to your sd card__:                    
-donwlaod the `webee210-uboot.bin` to the first block of your sd.
+__2.下载uboot到你的SD卡__:                    
 
-        # cd ~/webee210v2
+        # cd ~/webee210-uboot
         # sudo dd iflag=dsync oflag=dsync if=webee210-uboot.bin of=/dev/mmcblk0 seek=1 
         # sync
 
+_注意:项目目录下有一个`sd-burn.sh`的脚本,请在执行前打开来看看里面的文件名和sd卡的路径是否和你的电脑相同._
 
-###UBOOT MENU
+###UBOOT 菜单
 
-As the meun showed,there are two download mode of the menu
+uboot有两级菜单,这是第一级.可以选择usb烧录或是SD卡烧录,或是退出到命令行模式.
 
         #####    Boot for Webee210 Main Menu    #####             
         [1] Webee210 USE_USB_DOWN Download mode                
@@ -58,7 +60,7 @@ As the meun showed,there are two download mode of the menu
         [q] quit to Command line                               
         #################################################                                                            
 
-1.__the USB download mode__
+1.__USB下载模式__
 
         #####    Webee210 USB download mode     #####         
         [1] Download U-boot to Nand Flash                
@@ -72,9 +74,9 @@ As the meun showed,there are two download mode of the menu
         ################################################# 
         Enter your selection (╭￣3￣)╭ : 
 
-In linux,your can get the dnw tool from there [webee-dnw](https://github.com/iZobs/webee-dnw)
+在ubuntu,你可以从这里获得dnw烧录软件[webee-dnw](https://github.com/iZobs/webee-dnw)
 
-2.__the SD download mode__
+2.__SD烧录模式__
 
         #####    Boot for Webee210 Main Menu    #####
         #####    Webee210 SD download mode     #####
@@ -86,12 +88,12 @@ In linux,your can get the dnw tool from there [webee-dnw](https://github.com/iZo
         ################################################# 
         Enter your selection (╭￣3￣)╭ : 
 
-In this mode,you can download the linux kernel and the yaffs2 file-system to the nand flash by SD card.
-But you should do something to your SD card first:
+在这个模式下,你可以烧录linux内核和文件系统到你的nand flash.                
+不过你需要先对你的SD做一些准备工作:
 
-__(1).Cat Your SD__
+__(1).查看你的SD卡__
 
-here is my SD card on ubuntu: 
+在ubuntu下: 
 
         # sudo du
         # fdisk -l
@@ -107,20 +109,20 @@ here is my SD card on ubuntu:
         /dev/mmcblk0p3          247808    15564799     7658496   83  Linux
 
 
-__(2).Parted your SD card__:
+__(2).对你的SD卡进行分区__:
 
-we should ummout the dev that we going to delete: 
+先对已经存在的的分区进行卸载: 
 
         # umount /dev/mmcblk0p2
         # umount /dev/mmcblk0p3
 
-here we start:
+用fdisk进行分区:
 
         # fdisk /dev/mmcblk0
 
         Command (m for help): 
 
-type `p` to get info
+输入 `p` 打印SD信息:
 
         Command (m for help): p
         Disk /dev/mmcblk0: 7969 MB, 7969177600 bytes
@@ -134,7 +136,7 @@ type `p` to get info
         /dev/mmcblk0p2           43008      247807      102400   83  Linux
         /dev/mmcblk0p3          247808    15564799     7658496   83  Linux
 
-type `d` to delete `/dev/mmcblk0p2`,`/dev/mmcblk0p3`:
+输入 `d` 删除分区 `/dev/mmcblk0p2`,`/dev/mmcblk0p3`:
 
         Command (m for help): d
         Partition number (1-4): 2
@@ -142,7 +144,7 @@ type `d` to delete `/dev/mmcblk0p2`,`/dev/mmcblk0p3`:
         Command (m for help): d
         Selected partition 3
 
-type `n` to get the new part we want:
+输入 `n` 切割新分区 :           
 
         Command (m for help): n
         Partition type:
@@ -150,11 +152,11 @@ type `n` to get the new part we want:
            e   extended
         Select (default p): 
 
-we should choose `p` ,and then `1` to get part 1:
+选`1`,意味着分区1:          
 
         Partition number (1-4, default 1): 1
 
-the default block is start from 2048,in order to make room for uboot,wo start from 4380.and the size is 50MB.We are going to put the linux kernel here:
+为了给uboot留空间,我们从4380开始,大小为50M,存放linux内核,即uImage:              
 
         First sector (2048-15564799, default 2048): 4380
         Last sector, +sectors or +size{K,M,G} (4380-15564799, default 15564799): +50M
@@ -171,7 +173,7 @@ the default block is start from 2048,in order to make room for uboot,wo start fr
                 Device Boot      Start         End      Blocks   Id  System
         /dev/mmcblk0p1            4380      106779       51200   83  Linux
 
-using the same way,wo just get the part 2,which we going to put the yaffs2 file.the start block of part 2 should be the end of part1 plus 1,and that is:106779+1.the size is depend on your yaffs2 file.
+同样的方式,我们来切割分区2.分区2的开始为分区1的结束blocks+1,即:106779+1.大小取决于你的yaffs2 file.             
 
         Command (m for help): n
         Partition type:
@@ -192,22 +194,23 @@ using the same way,wo just get the part 2,which we going to put the yaffs2 file.
         /dev/mmcblk0p1            4380      106779       51200   83  Linux
         /dev/mmcblk0p2          106780     4301083     2097152   83  Linux
 
-the make it work,we should type `w`,and we will get the Partition we want
+输入`w`,让上面的配置生效:          
 
         Command (m for help): w
 
-__(3).Format Your Partition__:
+__(3).格式化你的分区__:
 
-format the Partition of SD into `FAT32`:
+将分区格式化为 `FAT32`:
 
         # mkfs.vfat /dev/mmcblk0p1
             mkfs.vfat 3.0.14 (23 Jan 2023)
         # mkfs.vfat /dev/mmcblk0p2
             mkfs.vfat 3.0.14 (23 Jan 2023)
 
-__(4)Put the file into SD__
+__(4)将文件直接复制到你的SD卡__
 
-just copy the uImage file to `/dev/mmcblk0p1`,and the yaffs2 file to `/dev/mmcblk0p2`.                            
-__warning: make sure the filename of your  uImage file is `uImage`,and yaffs2 file is `webee_yaffs2_img`__
+ cp linux 内核到 `/dev/mmcblk0p1`,文件系统到 `/dev/mmcblk0p2`.                  
+
+__注意 : 确保你的 uImage 文件名为 `uImage`,yaffsz文件系统名为 `webee_yaffs2_img`__
 
 
