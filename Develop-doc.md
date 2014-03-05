@@ -30,6 +30,7 @@
 
 - [如何同步fork源仓库的代码](https://help.github.com/articles/syncing-a-fork)
 - [git分支管理策略](http://www.ruanyifeng.com/blog/2012/07/git.html)
+- [git权威指南](http://www.worldhello.net/gotgit/)
 
 
 ###项目维护人              
