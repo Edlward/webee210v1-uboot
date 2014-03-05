@@ -26,6 +26,12 @@
 	topic:[Bug]uboot的菜单页面出现乱码
 
 
+###git使用tips
+
+- [如何同步fork源仓库的代码](https://help.github.com/articles/syncing-a-fork)
+- [git分支管理策略](http://www.ruanyifeng.com/blog/2012/07/git.html)
+
+
 ###项目维护人              
 
 __izobs : ivincentlin@gmail.com__
