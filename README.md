@@ -76,7 +76,7 @@ uboot有两级菜单,这是第一级.可以选择usb烧录或是SD卡烧录,或�
 
 在ubuntu,你可以从这里获得dnw烧录软件[webee-dnw](https://github.com/iZobs/webee-dnw)
 
-2.__SD烧录模式__
+2.SD烧录模式
 
         #####    Boot for Webee210 Main Menu    #####
         #####    Webee210 SD download mode     #####
